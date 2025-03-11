@@ -1,0 +1,36 @@
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.php [L]
+</IfModule>
+
+RewriteEngine on
+RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
+
+
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+
+ErrorDocument 404 /notfound
+
+
+
+RewriteEngine On
+
+RewriteCond %{HTTP:Accept-Language} ^ar [NC]
+RewriteRule ^$ https://aram.com.tr/ar/ [L,R=301]
+
+RewriteCond %{HTTP:Accept-Language} ^en [NC]
+RewriteRule ^$ https://aram.com.tr/en/ [L,R=301]
+
+RewriteCond %{HTTP:Accept-Language} ^tr [NC]
+RewriteRule ^$ https://aram.com.tr/tr/ [L,R=301]
+
+RewriteRule ^(en|ar|tr)/?$ index.html?lang=$1 [QSA,NC,L]
+
